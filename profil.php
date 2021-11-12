@@ -72,7 +72,6 @@
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
           <ul class="dropdown-menu">
 			<li><a href="history.php">My shop history</a></li>
-            <li><a href="lost.php">Forrgoten password</a></li>
             <li><a href="reset.php">Reset password</a></li>
             <li role="separator" class="divider"></li>
             <li><a href="logout.php">Log out</a></li>

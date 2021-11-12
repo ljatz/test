@@ -21,10 +21,49 @@
 			if($validate->passed()) {	
 				$email = Input::get('email');
 				$tp = random_bytes(4);
-				$message = 'This is your temporary password, after using please reset your password!' . bin2hex($tp);
-				mail($email, 'Temporary password', $message);
+				$new = bin2hex($tp); // temporary password
+				$message = 'This is your temporary password, ' . $new . ' after using please reset your password!';
+				//$send = mail($email, 'Temporary password', $message);
+				
+				
+				$salt = Hash::salt(32); // salt
+				$pass = Hash::make($new, $salt); // hash reseted password 
+				
+				$gets = DB::getInstance()->query('SELECT * FROM users WHERE email="' .$email . '"')->results();
+					foreach($gets as $get){
+						$n = $get->name;
+						$s = $get->surname;
+						$slug = $get->slug;
+						$e = $get->email;
+						$a = $get->addr;
+						$t = $get->town;
+						$c = $get->country;
+						$r = $get->registered_at;
+						$d = $get->deleted;
+						$o = $get->orders_id;
+						$i = $get->id;
+					}
+				 
+				$update = DB::getInstance()->update('users', $values = array( 
+					'name' => $n,
+					'surname' => $s,
+					'slug' => $slug,
+					'email' => $e,
+					'password' => $pass,
+					'salt' => $salt,
+					'addr' => $a,
+					'town' => $t,
+					'country' => $c,
+					'registered_at' => $r,
+					'deleted' => $d,
+					'orders_id' => $o), $i);
+					
+					Session::flash('success', 'Check your email!');
+				} else {
+					Session::flash('danger', 'Something went wrong!');
+				}
 			}
-	}
+
 	Helper::getHeader('Forgoten password', 'header', $user);
 	
 ?>	
