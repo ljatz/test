@@ -19,7 +19,6 @@
 		$title = $product->title;
 		$info = $product->info;
 		$price = $product->price;
-		$code = $product->code;
 		$page = $product->page;
 	}
 	
@@ -49,7 +48,6 @@
 					'title' => Input::get('title'),
 					'info' => Input::get('info'),
 					'price' => Input::get('price'),
-					'code' => $code,
 					'page' => $page), get_id());
 					
 					Session::flash('success', 'Article edited!');

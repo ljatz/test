@@ -4,7 +4,6 @@
 	
 	$user = new User();
 	
-	
 	/* nf
 	$d = dir('../v0.04');
 	

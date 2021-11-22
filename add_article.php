@@ -20,7 +20,7 @@
 		$pro = $pro->title;
 	}
 	
-	$code = DB::getInstance()->query('SELECT code FROM articles WHERE product="' . $pro . '"')->count();
+	$code = DB::getInstance()->query('SELECT product FROM articles WHERE product="' . $pro . '"')->count();
 	
 	switch($code) {
 		case 0 :
@@ -29,6 +29,9 @@
 		case !0 :
 			$code = $code + 1;
 		break;
+	}
+	if($code === 9){
+		$code = 8;
 	}
 	
 	$page = floor($code / 9 + 1);
@@ -52,7 +55,6 @@
 				'info'	=> Input::get('info'),
 				'price'	=> Input::get('price'),
 				'product' =>$pro,
-				'code'	=> $code,
 				'page'	=> $page
 			));
 		
@@ -97,10 +99,10 @@
 			<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Deleted users <span class="caret"></span></a>
 				<ul class="dropdown-menu">
 					<?php	
-						$deleted_users = DB::getInstance()->query('SELECT * FROM deleted_users')->results();
+						$deleted_users = DB::getInstance()->query('SELECT * FROM users')->results();
 						
 						foreach($deleted_users as $del){
-							echo '<li><a href="#">' . $del->name . ' ' . $del->surname . '</a></li>';
+							echo ($del->deleted != 0) ? '<li><a href="#">' . $del->name . ' ' . $del->surname . '</a></li>' : '';
 						}
 					?>
 				</ul>
@@ -139,7 +141,6 @@
 			<div class="panel-body">
 				<form method="post">
 					<input type="hidden" name="product" class="form-control" id="product" value="<?php echo $pro ?>">
-					<input type="hidden" name="code" class="form-control" id="code" value="<?php echo $code ?>">
 					<input type="hidden" name="page" class="form-control" id="page" value="<?php echo $page ?>">
 					<div class="form-group <?php echo ($validation->hasError('title')) ? 'has-error' : '' ?>">
 						<label for="title" class="control-label">Title*</label>

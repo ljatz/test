@@ -15,8 +15,7 @@ CREATE TABLE users(
 	country VARCHAR(255) NOT NULL,
 	phone VARCHAR(255) NOT NULL,
 	registered_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(),
-	deleted VARCHAR(255) NOT NULL,
-	orders_id VARCHAR(255) NOT NULL UNIQUE
+	deleted VARCHAR(255) NOT NULL
 ) Engine = InnoDB;
 
 CREATE TABLE products(
@@ -31,7 +30,6 @@ CREATE TABLE articles(
 	title VARCHAR(255) NOT NULL,
 	info VARCHAR(255) NOT NULL,
 	price VARCHAR(255) NOT NULL,
-	code VARCHAR(255) NOT NULL,
 	page VARCHAR(255) NOT NULL
 ) Engine = InnoDB;
 
@@ -40,5 +38,6 @@ CREATE TABLE orders(
 	id_user INT UNSIGNED NOT NULL,
 	id_article VARCHAR(255) NOT NULL,
 	quantity INT UNSIGNED NOT NULL,
-	price VARCHAR(255) NOT NULL
+	price VARCHAR(255) NOT NULL,
+	payway VARCHAR(255) NOT NULL
 ) Engine = InnoDB;

@@ -54,7 +54,6 @@
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
           <ul class="dropdown-menu">
 			<li><a href="history.php">My shop history</a></li>
-            <li><a href="lost.php">Forrgoten password</a></li>
             <li><a href="reset.php">Reset password</a></li>
             <li role="separator" class="divider"></li>
             <li><a href="logout.php">Log out</a></li>
@@ -64,9 +63,8 @@
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
-
 <?php 
-	$orders = DB::getInstance()->query('SELECT * FROM sessions')->results();
+	$orders = DB::getInstance()->query('SELECT * FROM orders')->results();
 	
 	foreach($orders as $order){
 		$id_user = $order->id_user;
@@ -101,6 +99,9 @@
 	</div>';
 	}}}
 		?>
+		
+		<!-- create bill with relevant info and section for pay ways at the end submit button -->
+		<!-- print option -->
 
 <?php
 	Helper::getFooter();	

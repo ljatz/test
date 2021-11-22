@@ -76,8 +76,7 @@
 						'town'		=> Input::get('town'),
 						'country'	=> Input::get('country'),
 						'phone'		=> Input::get('phone'),
-						'deleted'	=> $reg,
-						'orders_id'	=> uniqid()
+						'deleted'	=> $reg
 					));
 					
 				} catch(Exception $e) {

@@ -22,6 +22,24 @@
 		Redirect::to('nf');
 	} 
 	
+	if(Input::exists()){
+		$insert = DB::getInstance()->insert('orders', array(
+			'id_user' => $user->data()->id,
+			'id_article' => $id_article,
+			'quantity' => Input::get('quantity'),
+			'price' => $price,
+			'payway' => 0
+		));
+		
+		//$session = Cookie::put($user->data()->name, $user->data()->id, true);
+		
+		Session::flash('success','You add article to your cart!');
+		
+	} 
+	
+	
+	/* create insert section with unique session id for orders */
+	
 	Helper::getHeader('', 'header');
 
 ?>
@@ -49,16 +67,16 @@
 			} 
 		?>
 	</div>
+	<?php include_once 'notifications.php'; ?>
 	<div class="row text-center">
 			<div class="col-md-3"></div>
 				<div class="col-md-6">
 					<div class="thumbnail">
 						<img src="" alt="" style="width:242px; height:200px;"><!-- images and alts -->
 							<div class="captions">
-								<h3><?php echo $title; ?></h3><!-- product title -->
+								<h3><?php echo $title; ?></h3>
 									<p><?php echo $info; ?></p>
 									<p><?php echo $price; ?></p>
-									<?php include_once 'notifications.php'; ?>
 									<?php echo ($user->check()) ? '
 									<p>Quantitiy:</p>
 									<div class="row">
@@ -76,7 +94,7 @@
 										</select>
 										</div>
 										<p><button class="btn btn-default" type="submit">Add to cart</button></p>
-									</form>' : '<p><button class="btn btn-default disabled" type="submit" >Add to cart</button></p>'; ?>
+									</form>' : '<p style="font-size:10px;color:red;">Register for buy!</p>'; ?>
 									
 									</div>
 									<div class="col-md-2"></div>

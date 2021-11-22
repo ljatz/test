@@ -6,12 +6,15 @@
 	
 	$test = DB::getInstance()->find(get_id(),'products')->results();
 
-	$a = DB::getInstance()->finds(get_page(),'articles')->results();
-	$b = get_page();
-
-	if(empty($a) && !preg_match("/" . $b . "/", implode(',', $a)) || empty($test)){
+	if(empty($test)){
 		Redirect::to('nf');
 	} 
+	
+	$page_test = DB::getInstance()->finds(get_page(),'articles')->results();
+	
+	if(empty($page_test)){
+		Redirect::to('nf');
+	}
 	
 	Helper::getHeader('', 'header');
 
@@ -41,7 +44,7 @@
 						<p>' . $product->info . '</p>';
 			} 
 		?>
-		</div>
+		</div> 
 		<div class="row text-center">
 		<?php 
 			
@@ -67,38 +70,25 @@
 		<ul class="pagination">
 			<li>
 				<?php
-					$pages = DB::getInstance()->query('SELECT page,product FROM articles WHERE page = ' . get_page() . ' AND product ="' . $product->title . '"')->count();
 					
-					$y = get_page() - 1;
-						
-					switch(get_page()) {
-						case get_page() <= 1 :
-						echo '';
-						break;
-						case get_page() == 2 :
+					switch(get_page()){
+						case get_page() === 0 :
 						echo '<a href="products.php?id=' . get_id() . '" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>';
 						break;
-						case get_page() > 2 :
-						echo '<a href="products.php?id=' . get_id() . '-' . $y . '" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>';
+						case get_page() > 1 :
+						echo '<a href="products.php?id=' . get_id() . '-' . $x = get_page() - 1 . '" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>';
 						break;
-					} 
+					}
 					
 				?>
 			</li>
 			<li class="active"><a href="#"><?php echo get_page();?></a></li>
 			<li>
 				<?php
+					
+					$a = DB::getInstance()->query('SELECT page FROM articles WHERE product="' . $product->title . '" AND page=' . get_page())->count();
 				
-				$x = get_page() + 1;
-				
-					switch(get_page()) {
-						case $pages == 0 :
-						echo '';
-						break;
-						case $pages == 9 :
-						echo '<a href="products.php?id=' . get_id() . '-' . $x . '" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>';
-						break; 
-					} 
+						echo ($a == 9) ? '<a href="products.php?id=' . get_id() . '-' . $a = get_page() + 1 . '" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>' : '';
 				?>
 			</li>
 		</ul>
