@@ -16,8 +16,8 @@
 	require_once 'functions/sanitize.php';
 	require_once 'functions/debug.php';
 
-	if(Cookie::exists('WS') && !Session::exists('User')) { // set '' and 'User' 
-		$hash = Cookie::get('WS'); // set ''
+	if(Cookie::exists('test') && !Session::exists('User')) { // set '' and 'User' 
+		$hash = Cookie::get('test'); // set ''
 		$hashChek = DB::getInstance()->get('user_id', 'sessions', array('hash', '=', $hash));
 		
 		if($hashChek->count()) {

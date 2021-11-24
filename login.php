@@ -5,6 +5,8 @@
 	$user = new User();
 	
 	if($user->check()){
+		
+		// add cookie and session
 		Redirect::to('dashboard');
 	}
 	
@@ -41,6 +43,7 @@
 			Redirect::to(404);
 		}
 	}
+	
 	Helper::getHeader('Sign in', 'header', $user);
 	
 ?>	

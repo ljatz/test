@@ -70,9 +70,9 @@
 		$id_user = $order->id_user;
 		$id_article = $order->id_article;
 		$quantity = $order->quantity;
-		$price = $order->price;
-	
-	
+		$payway = $order->payway;
+	}
+
 	$user_ids = DB::getInstance()->query('SELECT name, surname, addr, town, country FROM users WHERE id=' . $id_user)->results();
 	
 	foreach($user_ids as $user_id){

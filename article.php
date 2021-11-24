@@ -6,6 +6,13 @@
 	
 	$validation = new Validation();
 	
+	if(Input::exists()){
+		$validate = $validation->check(array(
+			'quantity' => array(
+				'required' => true
+		)));
+	}
+	
 	$products = DB::getInstance()->query('SELECT title, info FROM products WHERE id=' . get_id())->results(); 
 	$articles = DB::getInstance()->query('SELECT * FROM articles WHERE id= ' . get_id())->results();
 	
@@ -27,16 +34,16 @@
 			'id_user' => $user->data()->id,
 			'id_article' => $id_article,
 			'quantity' => Input::get('quantity'),
-			'price' => $price,
 			'payway' => 0
-		));
-		
-		//$session = Cookie::put($user->data()->name, $user->data()->id, true);
-		
-		Session::flash('success','You add article to your cart!');
-		
+		));	
+		Session::flash('success','You add article to your cart!');	
 	} 
 	
+		if(Cookie::exists('WS')) {echo 'da'; } else { echo 'ne';}
+		
+		if(Session::exists('User')) {echo 'da'; } else { echo 'ne';}
+		
+		
 	
 	/* create insert section with unique session id for orders */
 	
@@ -69,43 +76,34 @@
 	</div>
 	<?php include_once 'notifications.php'; ?>
 	<div class="row text-center">
-			<div class="col-md-3"></div>
-				<div class="col-md-6">
-					<div class="thumbnail">
-						<img src="" alt="" style="width:242px; height:200px;"><!-- images and alts -->
-							<div class="captions">
-								<h3><?php echo $title; ?></h3>
-									<p><?php echo $info; ?></p>
-									<p><?php echo $price; ?></p>
-									<?php echo ($user->check()) ? '
-									<p>Quantitiy:</p>
-									<div class="row">
-									<div class="col-md-4"></div>
-									<div class="col-md-2">
+		<div class="col-md-3"></div>
+			<div class="col-md-6">
+				<div class="thumbnail">
+					<img src="" alt="" style="width:242px; height:200px;"><!-- images and alts -->
+						<div class="captions">
+							<h3><?php echo $title; ?></h3>
+								<p><?php echo $info; ?></p>
+								<p><?php echo $price; ?></p>
 									<form method="post">
-										<div class="form-group">
-										<select class="form-control" id="quantity" name="quantity">
-											<option value="" selected></option>
-											<option value="1">1</option>
-											<option value="2">2</option>
-											<option value="3">3</option>
-											<option value="4">4</option>
-											<option value="5">5</option>
-										</select>
+										<div class="form-group <?php echo ($validation->hasError('quantity')) ? 'has-error' : '' ?>">
+										<?php echo ($user->check()) ? '<label for="quantity" class="control-label">Quantity*</label>
+											<select class="form-control" id="quantity" name="quantity">
+												<option value="" selected></option>
+												<option value="1">1</option>
+												<option value="2">2</option>
+												<option value="3">3</option>
+												<option value="4">4</option>
+												<option value="5">5</option>
+											</select>' : ''; ?>
 										</div>
-										<p><button class="btn btn-default" type="submit">Add to cart</button></p>
-									</form>' : '<p style="font-size:10px;color:red;">Register for buy!</p>'; ?>
-									
-									</div>
-									<div class="col-md-2"></div>
-									</div>
-									<br/>
-							</div>
-					</div>
+										<?php echo ($validation->hasError('quantity')) ? '<p class="text-danger">' . $validation->hasError('quantity') . '</p>' : '' ?>
+										<?php echo ($user->check()) ? '<p><button class="btn btn-default" type="submit">Add to cart</button></p>' :'<p style="font-size:10px;color:red;">Register for buy!</p>'; ?>
+									</form>
+						</div>
 				</div>
-			
-			<div class="col-md-3"></div>
-	<div class="col-md-12">
+			</div>
+		<div class="col-md-3"></div>						
+	</div>
 <?php
 	Helper::getFooter();	
 ?>
