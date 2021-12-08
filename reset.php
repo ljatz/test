@@ -31,8 +31,8 @@
 				$id = get_id();
 			
 				$new = Input::get('password');
-				$salt = Hash::salt(32); // salt
-				$pass = Hash::make($new, $salt); // hash reseted password 
+				$salt = Hash::salt(32); 
+				$pass = Hash::make($new, $salt);
 				
 				$gets = DB::getInstance()->query('SELECT * FROM users WHERE id="' .$id . '"')->results();
 					foreach($gets as $get){

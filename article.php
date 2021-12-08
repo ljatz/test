@@ -30,22 +30,23 @@
 	} 
 	
 	if(Input::exists()){
+		$validate = $validation->check(array(
+			'quantity' => array(
+			'required' => true
+		)));
+	
+	if($validate->passed()){
 		$insert = DB::getInstance()->insert('orders', array(
-			'id_user' => $user->data()->id,
+			'id_user' => $name,
 			'id_article' => $id_article,
+			'id_order' => Cookie::get($name),
 			'quantity' => Input::get('quantity'),
 			'payway' => 0
 		));	
+		
 		Session::flash('success','You add article to your cart!');	
 	} 
-	
-		if(Cookie::exists('WS')) {echo 'da'; } else { echo 'ne';}
-		
-		if(Session::exists('User')) {echo 'da'; } else { echo 'ne';}
-		
-		
-	
-	/* create insert section with unique session id for orders */
+	}
 	
 	Helper::getHeader('', 'header');
 

@@ -3,22 +3,6 @@
 	include_once 'core/init.php';
 	
 	$user = new User();
-	
-	/* nf
-	$d = dir('../v0.04');
-	
-	while (false !== ($entry = $d->read())){
-		$a = $entry . ' ';
-		
-		$b = strstr($_SERVER['REQUEST_URI'], 'v0.04'); //path
-		$b = strstr($b, '/');
-		$b = substr($b, 1) . ' ';
-		
-
-		
-	}
-	$d->close();
-	*/
 
 	Helper::getHeader('', 'header');	
 

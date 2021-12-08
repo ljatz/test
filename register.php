@@ -91,7 +91,7 @@
 			}		
 		} else {
 			Session::flash('danger', 'Wrong CSRF token!');
-			Redirect::to(404);
+			Redirect::to('nf');
 		}
 	}
 	Helper::getHeader('Register', 'header', $user);

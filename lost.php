@@ -21,13 +21,12 @@
 			if($validate->passed()) {	
 				$email = Input::get('email');
 				$tp = random_bytes(4);
-				$new = bin2hex($tp); // temporary password
+				$new = bin2hex($tp); 
 				$message = 'This is your temporary password, ' . $new . ' after using please reset your password!';
-				//$send = mail($email, 'Temporary password', $message);
+				//$send = mail($email, 'Temporary password', $message);			
 				
-				
-				$salt = Hash::salt(32); // salt
-				$pass = Hash::make($new, $salt); // hash reseted password 
+				$salt = Hash::salt(32); 
+				$pass = Hash::make($new, $salt); 
 				
 				$gets = DB::getInstance()->query('SELECT * FROM users WHERE email="' .$email . '"')->results();
 					foreach($gets as $get){

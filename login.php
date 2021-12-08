@@ -6,7 +6,6 @@
 	
 	if($user->check()){
 		
-		// add cookie and session
 		Redirect::to('dashboard');
 	}
 	
@@ -40,7 +39,7 @@
 			}		
 		} else {
 			Session::flash('danger', 'Wrong CSRF token!');
-			Redirect::to(404);
+			Redirect::to('nf');
 		}
 	}
 	
