@@ -61,41 +61,42 @@
   </div>
 </nav>
 <?php 
-	$orders = DB::getInstance()->query('SELECT * FROM orders')->results();
-	
-	foreach($orders as $order){
-		$id_user = $order->id_user;
-		$id_article = $order->id_article;
-		$quantity = $order->quantity;
-		$payway = $order->payway;
-	}
+	$order = DB::getInstance()->query('SELECT * FROM orders WHERE id_user='. get_id())->results();
+		foreach($order as $orders) {
+			$id = $orders->id;
+			$id_user = $orders->id_user;
+			$id_article = $orders->id_article;
+			$id_order = $orders->id_order;
+			$quantity = $orders->quantity;
+			$payway = $orders->payway;
+			
+			$a = date('d.m.Y.');
+			
+			if($a > $id_article){
+				DB::getInstance()->delete('orders', 'payway', 0);
+			} 
+			
+			$carts = DB::getInstance()->query('SELECT * FROM articles WHERE id='. $id_article)->results();
+				foreach($carts as $cart){
+					$id = $cart->id;
+					$title = $cart->title;
+					$price = $cart->price;
+				}
+			
+			echo '<ul>
+					<li>' . $id_order . '</li>
+					<li>' . $id_user . '</li>
+					<li>' . $title . '<li>
+					<li>' . $quantity . '</li>
+					<li>Total : <b>' . $quantity * $price . '</b></li>
+				</ul>';
+			
+		}
+		
+		
 
-	$user_ids = DB::getInstance()->query('SELECT name, surname, addr, town, country FROM users WHERE id=' . $id_user)->results();
 	
-	foreach($user_ids as $user_id){
-		$name = $user_id->name;
-		$surname = $user_id->surname;
-		$addr = $user_id->addr;
-		$town = $user_id->town;
-		$country = $user_id->country;
-	
-	
-	$article_ids = DB::getInstance()->query('SELECT title FROM articles WHERE id=' . $id_article)->results();
-	
-	foreach($article_ids as $article){
-		$title = $article->title;
-
-
-	echo '<div class="panel panel-default">
-		<div class="panel-heading">
-			<h4 class="panel-title">Order</h4>
-		</div>
-		<div class="panel-body">
-			<p>' . $title . '</p>
-		</div>
-	</div>';
-	}}}
-		?>
+?>
 		
 		<!-- create bill with relevant info and section for pay ways at the end submit button -->
 		<!-- print option -->

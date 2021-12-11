@@ -36,10 +36,11 @@
 		)));
 	
 	if($validate->passed()){
+		$timestamp = date('d.', strtotime('+1 day')).$m = date('m.').$y = date('Y.');
 		$insert = DB::getInstance()->insert('orders', array(
-			'id_user' => $name,
+			'id_user' => $user->data()->id,
 			'id_article' => $id_article,
-			'id_order' => Cookie::get($name),
+			'id_order' => $timestamp,
 			'quantity' => Input::get('quantity'),
 			'payway' => 0
 		));	
