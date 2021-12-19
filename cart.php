@@ -46,12 +46,12 @@
 		</ul>
       
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#">Cart 0</a></li>
+        <li class="active"><a href="#">Cart 0</a></li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
           <ul class="dropdown-menu">
 			<li><a href="history.php">My shop history</a></li>
-            <li><a href="reset.php">Reset password</a></li>
+            <li><a href="reset.php?id=<?php echo $user->data()->id; ?>">Reset password</a></li>
             <li role="separator" class="divider"></li>
             <li><a href="logout.php">Log out</a></li>
           </ul>
@@ -60,47 +60,30 @@
     </div>
   </div>
 </nav>
-<?php 
-	$order = DB::getInstance()->query('SELECT * FROM orders WHERE id_user='. get_id())->results();
-		foreach($order as $orders) {
-			$id = $orders->id;
+<?php
+
+	$order = DB::getInstance()->query('SELECT * FROM cart WHERE id_user='. get_id())->results();
+		foreach($order as $key => $orders) {
+			$ids = $orders->id;
 			$id_user = $orders->id_user;
 			$id_article = $orders->id_article;
 			$id_order = $orders->id_order;
 			$quantity = $orders->quantity;
-			$payway = $orders->payway;
+			$price = $orders->price;
 			
-			$a = date('d.m.Y.');
+		echo (empty($order)) ? '' : '<ul>
+			<li>' . $id_order . '</li>
+			<li>' . $id_article . ' - ' . $quantity  . ' kom. - ' . $price . ' kn = ' . $quantity * $price . ' kn</li>
+			<li>----------</li>
 			
-			if($a > $id_article){
-				DB::getInstance()->delete('orders', 'payway', 0);
-			} 
-			
-			$carts = DB::getInstance()->query('SELECT * FROM articles WHERE id='. $id_article)->results();
-				foreach($carts as $cart){
-					$id = $cart->id;
-					$title = $cart->title;
-					$price = $cart->price;
-				}
-			
-			echo '<ul>
-					<li>' . $id_order . '</li>
-					<li>' . $id_user . '</li>
-					<li>' . $title . '<li>
-					<li>' . $quantity . '</li>
-					<li>Total : <b>' . $quantity * $price . '</b></li>
-				</ul>';
-			
-		}
+		</ul>
 		
-		
-
-	
-?>
-		
-		<!-- create bill with relevant info and section for pay ways at the end submit button -->
-		<!-- print option -->
+		<p>Total: kn</p>';
+	}
+?>		
 
 <?php
+
 	Helper::getFooter();	
+	
 ?>

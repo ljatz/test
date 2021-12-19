@@ -35,6 +35,12 @@ class Redirect
 		header('Location:' . $location . '.php?id=' . $id);
 		exit();
 	}
+	
+	public static function refresh($location)
+	{	
+		header('Refresh:0');
+		exit();
+	}
 }
 
 ?>

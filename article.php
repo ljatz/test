@@ -6,13 +6,6 @@
 	
 	$validation = new Validation();
 	
-	if(Input::exists()){
-		$validate = $validation->check(array(
-			'quantity' => array(
-				'required' => true
-		)));
-	}
-	
 	$products = DB::getInstance()->query('SELECT title, info FROM products WHERE id=' . get_id())->results(); 
 	$articles = DB::getInstance()->query('SELECT * FROM articles WHERE id= ' . get_id())->results();
 	
@@ -34,19 +27,20 @@
 			'quantity' => array(
 			'required' => true
 		)));
-	
-	if($validate->passed()){
-		$timestamp = date('d.', strtotime('+1 day')).$m = date('m.').$y = date('Y.');
-		$insert = DB::getInstance()->insert('orders', array(
-			'id_user' => $user->data()->id,
-			'id_article' => $id_article,
-			'id_order' => $timestamp,
-			'quantity' => Input::get('quantity'),
-			'payway' => 0
-		));	
 		
-		Session::flash('success','You add article to your cart!');	
-	} 
+	
+		if($validate->passed()){
+			$timestamp = date('d.', strtotime('+1 day')).$m = date('m.').$y = date('Y.');
+			$insert = DB::getInstance()->insert('cart', array(
+				'id_user' => $user->data()->id,
+				'id_article' => $title,
+				'id_order' => $timestamp,
+				'quantity' => Input::get('quantity'),
+				'price' => $price 
+			));	
+			
+			Session::flash('success','You add article to your cart!');	
+		} 
 	}
 	
 	Helper::getHeader('', 'header');
@@ -85,7 +79,7 @@
 						<div class="captions">
 							<h3><?php echo $title; ?></h3>
 								<p><?php echo $info; ?></p>
-								<p><?php echo $price; ?></p>
+								<p><?php echo $price . ' kn'; ?></p>
 									<form method="post">
 										<div class="form-group <?php echo ($validation->hasError('quantity')) ? 'has-error' : '' ?>">
 										<?php echo ($user->check()) ? '<label for="quantity" class="control-label">Quantity*</label>

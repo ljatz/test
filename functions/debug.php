@@ -35,5 +35,8 @@ function get_page() {
 		return "1";
 	}
 }
+
+function sum(){
+}
 	
 ?>
