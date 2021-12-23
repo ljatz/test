@@ -57,7 +57,7 @@
 									<div class="captions">
 										<h3>' . $article->title . '</h3><!-- product title -->
 											<p>' . $article->info . '</p>
-											<p>' . $article->price . '</p>
+											<p>' . $article->price . ' kn</p>
 											<p><a href="article.php?id=' . $article->id . '" class="btn btn-default" role="button">More ...</a></p>
 									</div>
 								</div>

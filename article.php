@@ -36,7 +36,8 @@
 				'id_article' => $title,
 				'id_order' => $timestamp,
 				'quantity' => Input::get('quantity'),
-				'price' => $price 
+				'price' => $price,
+				'total' => Input::get('quantity') * $price
 			));	
 			
 			Session::flash('success','You add article to your cart!');	

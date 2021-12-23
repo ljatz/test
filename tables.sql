@@ -39,7 +39,8 @@ CREATE TABLE cart(
 	id_article VARCHAR(255) NOT NULL,
 	id_order VARCHAR(255) NOT NULL,
 	price INT UNSIGNED NOT NULL,
-	quantity INT UNSIGNED NOT NULL
+	quantity INT UNSIGNED NOT NULL,
+	total INT UNSIGNED NOT NULL
 ) Engine = InnoDB;
 
 CREATE TABLE orders(
@@ -49,7 +50,8 @@ CREATE TABLE orders(
 	id_order VARCHAR(255) NOT NULL,
 	quantity INT UNSIGNED NOT NULL,
 	price INT UNSIGNED NOT NULL,
-	payway INT UNSIGNED NOT NULL
+	payway INT UNSIGNED NOT NULL,
+	total INT UNSIGNED NOT NULL
 ) Engine = InnoDB;
 
 CREATE TABLE sessions(

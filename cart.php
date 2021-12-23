@@ -12,6 +12,8 @@
 		Redirect::to('index');
 	}
 	
+	$counter = DB::getInstance()->query('SELECT * FROM cart WHERE id_user='. get_id())->count();
+	
 	Helper::getHeader('', 'header');	
 
 ?>
@@ -46,7 +48,7 @@
 		</ul>
       
       <ul class="nav navbar-nav navbar-right">
-        <li class="active"><a href="#">Cart 0</a></li>
+        <li class="active"><a href="#">Cart <?php echo $counter; ?></a></li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
           <ul class="dropdown-menu">
@@ -63,6 +65,7 @@
 <?php
 
 	$order = DB::getInstance()->query('SELECT * FROM cart WHERE id_user='. get_id())->results();
+	
 		foreach($order as $key => $orders) {
 			$ids = $orders->id;
 			$id_user = $orders->id_user;
@@ -70,17 +73,30 @@
 			$id_order = $orders->id_order;
 			$quantity = $orders->quantity;
 			$price = $orders->price;
-			
-		echo (empty($order)) ? '' : '<ul>
-			<li>' . $id_order . '</li>
-			<li>' . $id_article . ' - ' . $quantity  . ' kom. - ' . $price . ' kn = ' . $quantity * $price . ' kn</li>
-			<li>----------</li>
-			
-		</ul>
-		
-		<p>Total: kn</p>';
-	}
-?>		
+			$total = $orders->total;
+
+			echo (empty($order)) ? '' : '<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">' . $id_order . '</h3>
+				</div>
+				<div class="panel-body">'
+					. $id_article . ' - ' . $quantity . ' kom. - ' . $price . ' kn, ukupno = ' . $total . ' kn 
+				</div>
+				</div>';
+
+		}		
+?>	
+
+	<div class="panel panel-default">
+		<div class="panel-heading"><h3 class="panel-title">Sveukupno: <?php $summary = DB::getInstance()->query('SELECT SUM(total) AS sum FROM cart WHERE id_user=' . get_id())->results(); foreach($summary as $sum) { echo $sum->sum; } ?> kn</h3></div>
+		<div class="panel-body center">
+			<form method="post">
+				<button class="btn btn-default" type="submit">Pay</button> <button class="btn btn-default">Cancel</button>
+				
+			<!-- if pay delete cart add orders, if cancel delete cart -->	
+			</form>
+		</div>
+	</div>
 
 <?php
 
