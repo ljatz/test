@@ -64,6 +64,8 @@
 </nav>
 <?php
 
+	include_once 'notifications.php';
+
 	$order = DB::getInstance()->query('SELECT * FROM cart WHERE id_user='. get_id())->results();
 	
 		foreach($order as $key => $orders) {
@@ -74,32 +76,28 @@
 			$quantity = $orders->quantity;
 			$price = $orders->price;
 			$total = $orders->total;
-
+			
 			echo (empty($order)) ? '' : '<div class="panel panel-default">
 				<div class="panel-heading">
 					<h3 class="panel-title">' . $id_order . '</h3>
-				</div>
-				<div class="panel-body">'
-					. $id_article . ' - ' . $quantity . ' kom. - ' . $price . ' kn, ukupno = ' . $total . ' kn 
-				</div>
-				</div>';
-
-		}		
+				</div> 
+				<div class="panel-body"><b>'
+					. $id_article . ' - ' . $quantity . ' kom. - ' . $price . ' kn, ukupno = ' . $total . ' kn</b> <button type="button" class="btn btn-default btn-xs" name="cancel_' . $ids . '">X</button>
+				</div></div>';
+		}	
+		
 ?>	
 
 	<div class="panel panel-default">
 		<div class="panel-heading"><h3 class="panel-title">Sveukupno: <?php $summary = DB::getInstance()->query('SELECT SUM(total) AS sum FROM cart WHERE id_user=' . get_id())->results(); foreach($summary as $sum) { echo $sum->sum; } ?> kn</h3></div>
 		<div class="panel-body center">
-			<form method="post">
-				<button class="btn btn-default" type="submit">Pay</button> <button class="btn btn-default">Cancel</button>
-				
-			<!-- if pay delete cart add orders, if cancel delete cart -->	
-			</form>
+				<button class="btn btn-default" type="button"><a href="pay.php">Pay</a></button> <button class="btn btn-default"type="button"><a href="cancel.php?id=<?php echo get_id(); ?>">Cancel</button>
+					
 		</div>
 	</div>
 
 <?php
 
-	Helper::getFooter();	
+	Helper::getFooter();
 	
 ?>

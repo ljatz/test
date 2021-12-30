@@ -14,7 +14,7 @@
 		$id = $user->data()->id;
 	}
 	
-	$counter = DB::getInstance()->query('SELECT * FROM cart WHERE id_user='. get_id())->count();
+	$counter = DB::getInstance()->query('SELECT * FROM cart WHERE id_user='. $user->data()->id)->count();
 	
 	$data = DB::getInstance()->query('SELECT * FROM users WHERE id='.$id)->results();
 	

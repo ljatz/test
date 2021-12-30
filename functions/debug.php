@@ -36,7 +36,11 @@ function get_page() {
 	}
 }
 
-function sum(){
+function location() {
+	$id = $_SERVER['REQUEST_URI'];
+	$location = strrchr($id, '/');
+	
+	return $location;
 }
 	
 ?>
