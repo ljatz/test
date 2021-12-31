@@ -82,7 +82,7 @@
 					<h3 class="panel-title">' . $id_order . '</h3>
 				</div> 
 				<div class="panel-body"><b>'
-					. $id_article . ' - ' . $quantity . ' kom. - ' . $price . ' kn, ukupno = ' . $total . ' kn</b> <button type="button" class="btn btn-default btn-xs" name="cancel_' . $ids . '">X</button>
+					. $id_article . ' - ' . $quantity . ' kom. - ' . $price . ' kn, ukupno = ' . $total . ' kn</b> <button type="button" class="btn btn-default btn-xs"><a href="can_one.php?id='.get_id().'-'.$ids.'">X</a></button>
 				</div></div>';
 		}	
 		
@@ -91,7 +91,7 @@
 	<div class="panel panel-default">
 		<div class="panel-heading"><h3 class="panel-title">Sveukupno: <?php $summary = DB::getInstance()->query('SELECT SUM(total) AS sum FROM cart WHERE id_user=' . get_id())->results(); foreach($summary as $sum) { echo $sum->sum; } ?> kn</h3></div>
 		<div class="panel-body center">
-				<button class="btn btn-default" type="button"><a href="pay.php">Pay</a></button> <button class="btn btn-default"type="button"><a href="cancel.php?id=<?php echo get_id(); ?>">Cancel</button>
+				<button class="btn btn-default" type="button"><a href="pay.php?id=<?php echo get_id(); ?>">Pay</a></button> <button class="btn btn-default"type="button"><a href="cancel.php?id=<?php echo get_id(); ?>">Cancel</button>
 					
 		</div>
 	</div>

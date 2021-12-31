@@ -16,7 +16,7 @@
 	
 	$counter = DB::getInstance()->query('SELECT * FROM cart WHERE id_user='. $user->data()->id)->count();
 	
-	$data = DB::getInstance()->query('SELECT * FROM users WHERE id='.$id)->results();
+	$data = DB::getInstance()->query('SELECT * FROM users WHERE id='.$user->data()->id)->results();
 	
 	foreach($data as $info) {
 		$name = $info->name;
