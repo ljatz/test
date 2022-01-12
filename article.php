@@ -30,7 +30,7 @@
 		
 	
 		if($validate->passed()){
-			$timestamp = date('d.', strtotime('day')).$m = date('m.').$y = date('Y.');
+			$timestamp = date('d.m.Y.');
 			$insert = DB::getInstance()->insert('cart', array(
 				'id_user' => $user->data()->id,
 				'id_article' => $title,

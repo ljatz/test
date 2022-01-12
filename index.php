@@ -18,7 +18,7 @@
 						<?php if(!$user->check()){ 
 							echo '<button type="button" class="btn btn-default"><a href="register.php">Register</a></button>
 						<button type="button" class="btn btn-default"><a href="login.php">Log in</a></button>'; } elseif($user->data()->slug === 'master'){ echo '<button type="button" class="btn btn-default"><a href="dashboard.php">Dashboard</a></button> <button type="button" class="btn btn-default"><a href="logout.php">Logout</a></button>'; } else {
-							echo '<button type="button" class="btn btn-default"><a href="profil.php">My profil</a></button> <button type="button" class="btn btn-default"><a href="logout.php">Logout</a></button>';
+							echo '<button type="button" class="btn btn-default"><a href="profil.php?id=' . $user->data()->id . '">My profil</a></button> <button type="button" class="btn btn-default"><a href="logout.php">Logout</a></button>';
 						}
 						?>
 					</div>

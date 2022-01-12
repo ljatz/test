@@ -9,23 +9,12 @@
 	}
 	
 	if($user->data()->slug === 'master') {
-		$id = get_id();
+		$ids = get_id();
 	} else {
-		$id = $user->data()->id;
+		$ids = $user->data()->id;
 	}
 	
 	$counter = DB::getInstance()->query('SELECT * FROM cart WHERE id_user='. $user->data()->id)->count();
-	
-	$data = DB::getInstance()->query('SELECT * FROM users WHERE id='.$user->data()->id)->results();
-	
-	foreach($data as $info) {
-		$name = $info->name;
-		$surname = $info->surname;
-		$addr = $info->addr;
-		$town = $info->town;
-		$country = $info->country;
-		$phone = $info->phone;
-	}
 	
 	Helper::getHeader('WS', 'header', $user);
 	
@@ -83,7 +72,21 @@
 			</div>
 			<div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labeledby="headingOne">
 				<div class="panel-body">
-					<?php echo 
+					<?php 
+					
+					$data = DB::getInstance()->query('SELECT * FROM users WHERE id='.get_id())->results();
+	
+						foreach($data as $info) {
+							$id = $info->id;
+							$name = $info->name;
+							$surname = $info->surname;
+							$addr = $info->addr;
+							$town = $info->town;
+							$country = $info->country;
+							$phone = $info->phone;
+						}
+						
+					echo 
 						'<p>Your name and surname is ' . $name . ' ' . $surname . '</p> 
 						<p>Your delivery address is ' . $addr . ' in ' . $town . ', ' . $country . '</p>
 						<p>When you are going to buy some of our products we will send you SMS message to arrange delivery date</p>';
@@ -106,7 +109,9 @@
 			<div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labeledby="headingTwo">
 				<div class="panel-body">
 					<?php 
-						echo 'You have order';
+						$orders = DB::getInstance()->query('SELECT * FROM orders WHERE id=' .get_id())->results();
+						
+						echo 'You have ordered';
 					?>
 				</div>
 			</div>
