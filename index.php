@@ -3,8 +3,18 @@
 	include_once 'core/init.php';
 	
 	$user = new User();
+	
+	$a = date('d.m.Y.');
+	
+	$b = DB::getInstance()->query('SELECT * FROM cart')->results();
+	
+	foreach($b as $c) {
+		if($a !== $c->id_order) {
+			DB::getInstance()->delete('cart', 'id_order', $c->id_order);
+		} 
+	}
 
-	Helper::getHeader('', 'header');	
+	Helper::getHeader('', 'header');
 
 ?>
 			<div class="jumbotron">
