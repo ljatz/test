@@ -85,10 +85,10 @@
 			<li class="active"><a href="#"><?php echo get_page();?></a></li>
 			<li>
 				<?php
-					
-					$a = DB::getInstance()->query('SELECT page FROM articles WHERE product="' . $product->title . '" AND page=' . get_page())->count();
+					$b = get_page() + 1;
+					$a = DB::getInstance()->query('SELECT page FROM articles WHERE product="' . $product->title . '" AND page=' . $b)->count();
 				
-						echo ($a == 9) ? '<a href="products.php?id=' . get_id() . '-' . $a = get_page() + 1 . '" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>' : '';
+						echo ($a !== 0) ? '<a href="products.php?id=' . get_id() . '-' . $a = get_page() + 1 . '" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>' : '';
 				?>
 			</li>
 		</ul>
