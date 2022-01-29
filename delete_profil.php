@@ -18,7 +18,6 @@
 		$id = $del->id;	
 	
 		$deleted_users = DB::getInstance()->update('users', array(
-			'id'		=> $id = $del->id,
 			'name' 		=> $name = $del->name,
 			'surname'	=> $surname = $del->surname,
 			'email'		=> '0'. $email = $del->email,

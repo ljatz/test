@@ -73,15 +73,8 @@
 			<div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labeledby="headingOne">
 				<div class="panel-body">
 					<?php 
-					if($user->data()->slug !== 'master') {
 						
-						$data = DB::getInstance()->query('SELECT * FROM users WHERE id=' . $user->data()->id)->results();
-						
-					} else {
-						
-						$data = DB::getInstance()->query('SELECT * FROM users WHERE id=' . get_id())->results();
-						
-					}
+						$data = DB::getInstance()->query('SELECT * FROM users WHERE id=' . $ids)->results();
 	
 						foreach($data as $info) {
 							$id = $info->id;
