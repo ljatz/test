@@ -30,7 +30,7 @@
 				<?php if(!$user->check()){ 
 					echo '<button type="button" class="btn btn-default"><a href="register.php">Register</a></button>
 				<button type="button" class="btn btn-default"><a href="login.php">Log in</a></button>'; } else {
-					echo '<button type="button" class="btn btn-default"><a href="profil.php">My profil</a></button> <button type="button" class="btn btn-default"><a href="logout.php">Logout</a></button>';
+					echo '<button type="button" class="btn btn-default"><a href="profil.php?id=1">My profil</a></button> <button type="button" class="btn btn-default"><a href="logout.php">Logout</a></button>';
 				}
 				?>
 			</div>

@@ -74,7 +74,7 @@
 			<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Deleted users <span class="caret"></span></a>
 				<ul class="dropdown-menu">
 					<?php	
-						$deleted_users = DB::getInstance()->query('SELECT * FROM deleted_users')->results();
+						$deleted_users = DB::getInstance()->query('SELECT * FROM users WHERE deleted != 0')->results();
 						
 						foreach($deleted_users as $del){
 							echo '<li><a href="#">' . $del->name . ' ' . $del->surname . '</a></li>';
@@ -94,9 +94,6 @@
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
           <ul class="dropdown-menu">
-			<li><a href="profil.php">My profil</a></li>
-			<li><a href="history.php">My shop history</a></li>
-            <li><a href="lost.php">Forrgoten password</a></li>
             <li><a href="reset.php">Reset password</a></li>
             <li role="separator" class="divider"></li>
             <li><a href="logout.php">Log out</a></li>
