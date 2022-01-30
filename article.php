@@ -27,7 +27,6 @@
 			'quantity' => array(
 			'required' => true
 		)));
-		
 	
 		if($validate->passed()){
 			$timestamp = date('d.m.Y.');

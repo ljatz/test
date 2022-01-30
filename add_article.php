@@ -45,7 +45,8 @@
 				'required' => true
 			),
 			'price'	=> array(
-				'required' => true
+				'required' => true,
+				'price' => true
 			)
 		));
 	
