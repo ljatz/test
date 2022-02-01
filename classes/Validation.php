@@ -53,6 +53,7 @@ class Validation
 							if(preg_match('/,/', $value)) {
 								$this->addError($field, 'If number is not round use dot instead comma!');
 							}
+						break;
 					}
 				}
 			}	

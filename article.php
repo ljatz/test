@@ -57,7 +57,7 @@
 				<?php if(!$user->check()){ 
 					echo '<button type="button" class="btn btn-default"><a href="register.php">Register</a></button>
 				<button type="button" class="btn btn-default"><a href="login.php">Log in</a></button>'; } else {
-					echo '<button type="button" class="btn btn-default"><a href="profil.php?id=1">My profil</a></button> <button type="button" class="btn btn-default"><a href="logout.php">Logout</a></button>';
+					echo '<button type="button" class="btn btn-default"><a href="cart.php?id=' . $user->data()->id .'">My cart</a></button> <button type="button" class="btn btn-default"><a href="logout.php">Logout</a></button>';
 				}
 				?>
 			</div>
@@ -79,7 +79,7 @@
 						<div class="captions">
 							<h3><?php echo $title; ?></h3>
 								<p><?php echo $info; ?></p>
-								<p><?php echo $price . ' kn'; ?></p>
+								<p><?php echo bill($price) . ' kn'; ?></p>
 									<form method="post">
 										<div class="form-group <?php echo ($validation->hasError('quantity')) ? 'has-error' : '' ?>">
 										<?php echo ($user->check()) ? '<label for="quantity" class="control-label">Quantity*</label>

@@ -42,5 +42,20 @@ function location() {
 	
 	return $location;
 }
+
+function bill($price) {
+
+	$price = str_replace('.', ',', $price);
+
+	$a = strlen(strstr($price, ','));
+	
+	if(!preg_match('/,/', $price) ){
+		return $price . ',00';
+	} elseif($a < 3) {
+		return $price . '0';
+	} else {
+		return $price;
+	}
+}
 	
 ?>
