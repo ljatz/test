@@ -14,7 +14,7 @@
 	
 	$counter = DB::getInstance()->query('SELECT * FROM cart WHERE id_user='. get_id())->count();
 	
-	Helper::getHeader('', 'header');	
+	Helper::getHeader('', 'header');
 
 ?>
 
@@ -88,7 +88,7 @@
 ?>	
 
 	<div class="panel panel-default">
-		<div class="panel-heading"><h3 class="panel-title">Sveukupno: <?php $summary = DB::getInstance()->query('SELECT SUM(total) AS sum FROM cart WHERE id_user=' . get_id())->results(); foreach($summary as $sum) { echo bill($sum->sum); } ?> kn</h3></div>
+		<div class="panel-heading"><h3 class="panel-title">Sveukupno: <?php $summary = DB::getInstance()->query('SELECT SUM(total) AS sum FROM cart WHERE id_user=' . get_id())->results(); foreach($summary as $sum) { echo ($sum->sum > 0) ? bill($sum->sum) . ' kn' : ' '; } ?></h3></div>
 		<div class="panel-body center">
 				<button class="btn btn-default" type="button"><a href="pay.php?id=<?php echo get_id(); ?>">Pay</a></button> <button class="btn btn-default"type="button"><a href="cancel.php?id=<?php echo get_id(); ?>">Cancel</button>
 					

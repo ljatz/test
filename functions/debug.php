@@ -49,7 +49,7 @@ function bill($price) {
 
 	$a = strlen(strstr($price, ','));
 	
-	if(!preg_match('/,/', $price) ){
+	if(!preg_match('/,/', $price)){
 		return $price . ',00';
 	} elseif($a < 3) {
 		return $price . '0';

@@ -27,11 +27,8 @@
 			$code = 1;
 		break;
 		case !0 :
-			$code = $code + 1;
+			$code;
 		break;
-	}
-	if($code === 9){
-		$code = 8;
 	}
 	
 	$page = floor($code / 9 + 1);

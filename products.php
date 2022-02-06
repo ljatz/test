@@ -28,7 +28,7 @@
 				}
 				?>
 			</div>
-			<?php echo ($user->check() && $user->data()->slug === 'master') ? '<br><br><button type="button" class="btn btn-default"><a href="edit_product.php?id=' . get_id() . '">Edit product</a></button> <button type="button" class="btn btn-default"><a href="add_article.php?id=' . get_id() . '">Add article</a></button> <button type="button" class="btn btn-default"><a href="delete_product.php?id=' . get_id() .'">Delete all this products</a></button>' : ''; ?> 
+			<?php echo ($user->check() && $user->data()->slug === 'master') ? '<br><br><button type="button" class="btn btn-default"><a href="edit_product.php?id=' . get_id() . '">Edit product</a></button> <button type="button" class="btn btn-default"><a href="add_article.php?id=' . get_id() . '">Add article</a></button> <button type="button" class="btn btn-default"><a href="da.php?id=' . get_id() .'">Delete all this products</a></button>' : ''; ?> 
 		</div>
 		<?php 
 			$products = DB::getInstance()->query('SELECT * FROM products WHERE id=' . get_id())->results(); 
