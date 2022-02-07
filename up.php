@@ -12,54 +12,39 @@
 		Redirect::to('index');
 	}
 	
-	$validation = new Validation();
+	if(isset($_POST['upload'])){
+		$path = 'img';
 	
-	$product = DB::getInstance()->query('SELECT title FROM products WHERE id="' . get_id() . '"')->results();
-	
-	foreach($product as $pro) {
-		$pro = $pro->title;
+	if( ! is_dir($path)) {
+		mkdir($path, 0755);
 	}
 	
-	$code = DB::getInstance()->query('SELECT product FROM articles WHERE product="' . $pro . '"')->count();
+	$total = count($_FILES['file']['name']);
+		for($i = 0; $i < $total; $i++) {
+			$tmp_name  = $_FILES['file']['tmp_name'][$i];
+			$file_name = $_FILES['file']['name'][$i];
+			$error     = $_FILES['file']['error'][$i];
+			$size      = $_FILES['file']['size'][$i];
 	
-	switch($code) {
-		case 0 :
-			$code = 1;
-		break;
-		case !0 :
-			$code;
-		break;
-	}
-	
-	$page = floor($code / 9 + 1);
-	
-	if(Input::exists()) {
-		$validate = $validation->check(array(
-			'title' => array(
-				'required' => true
-			),
-			'info'	=> array(
-				'required' => true
-			),
-			'price'	=> array(
-				'required' => true,
-				'price' => true
-			)
-		));
-	
-		if($validate->passed()) {
-			$insert = DB::getInstance()->insert('articles', array(
-				'title' => Input::get('title'),
-				'info'	=> Input::get('info'),
-				'price'	=> Input::get('price'),
-				'product' =>$pro,
-				'page'	=> $page
-			));
+	if($error == 0 && $size != 0) {
+		$file_parts = pathinfo($file_name);
+		$ext = $file_parts['extension'];
 		
-				Session::flash('success', 'Article added!');
-				Redirect::to('up');
+		$new_name = time().rand(100,999).uniqid().'.'.$ext;
+		$dest = $path . '/' . $new_name;
+		
+		if(move_uploaded_file($tmp_name, $dest)) {
+			Session::flash('success', 'Upload successfull!');
+		} else {
+			Session::flash('danger', 'Something went wrong!');
 		}
+	} else {
+		
+		Session::flash('danger', 'Upload failed!');
 	}
+	}
+	
+}
 	
 	Helper::getHeader('WS', 'header', $user);
 	
@@ -128,32 +113,18 @@
 
 	<div class="panel panel-default">
 		<div class="panel-heading">
-			<h3 class="panel-title">Add article</h3>
+			<h3 class="panel-title">Add article image</h3>
 		</div>
 			<div class="panel-body">
-				<form method="post">
-					<input type="hidden" name="product" class="form-control" id="product" value="<?php echo $pro ?>">
-					<input type="hidden" name="page" class="form-control" id="page" value="<?php echo $page ?>">
-					<div class="form-group <?php echo ($validation->hasError('title')) ? 'has-error' : '' ?>">
-						<label for="title" class="control-label">Title*</label>
-						<input type="text" name="title" class="form-control" id="title" placeholder="Enter name of product" value="<?php echo Input::get('title'); ?>" autocomplete="off">
-						<?php echo ($validation->hasError('title')) ? '<p class="text-danger">' . $validation->hasError('title') . '</p>' : '' ?>
-					</div>
-					<div class="form-group <?php echo ($validation->hasError('info')) ? 'has-error' : '' ?>">
-						<label for="info" class="control-label">Info*</label>
-						<input type="text" name="info" class="form-control" id="info" placeholder="Enter some info about product" value="<?php echo Input::get('info'); ?>" autocomplete="off">
-						<?php echo ($validation->hasError('info')) ? '<p class="text-danger">' . $validation->hasError('info') . '</p>' : '' ?>
-					</div>
-					<div class="form-group <?php echo ($validation->hasError('price')) ? 'has-error' : '' ?>">
-						<label for="price" class="control-label">Price*</label>
-						<input type="text" name="price" class="form-control" id="price" placeholder="Enter price" value="<?php echo Input::get('price'); ?>" autocomplete="off">
-						<?php echo ($validation->hasError('price')) ? '<p class="text-danger">' . $validation->hasError('price') . '</p>' : '' ?>
+				<form method="post"  enctype="multipart/form-data">
+					<div>
+						<input name="file[]" type="file" multiple>
 					</div>
 					<div class="text-center">
-						<button type="submit" class="btn btn-default">Add new article</button>
+						<button type="submit" name="upload" class="btn btn-default">Upload</button>
 					</div>
 				</form>
 			</div>
 	</div>
-					
+
 <?php Helper::getFooter();?>
