@@ -11,6 +11,12 @@
 	if($user->data()->slug === 'user') {
 		Redirect::to('index');
 	}
+
+	$last_id = DB::getInstance()->query('SELECT id FROM articles ORDER BY id DESC LIMIT 1')->results();
+	
+	foreach($last_id as $l_id) {
+		$last = $l_id->id;
+	}
 	
 	if(isset($_POST['upload'])){
 		$path = 'img';
@@ -30,7 +36,7 @@
 		$file_parts = pathinfo($file_name);
 		$ext = $file_parts['extension'];
 		
-		$new_name = time().rand(100,999).uniqid().'.'.$ext;
+		$new_name = get_id() . '-' . $last . '.'.$ext;
 		$dest = $path . '/' . $new_name;
 		
 		if(move_uploaded_file($tmp_name, $dest)) {

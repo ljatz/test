@@ -57,7 +57,7 @@
 			));
 		
 				Session::flash('success', 'Article added!');
-				Redirect::to('up');
+				Redirect::at('up', get_id());
 		}
 	}
 	

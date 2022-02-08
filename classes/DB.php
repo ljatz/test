@@ -50,13 +50,15 @@ class DB
 					$x++;
 				}
 			}
-			
+
 			if($this->_query->execute()){
 				$this->_results = $this->_query->fetchAll($this->_config['fetch']);
 				$this->_count = $this->_query->rowCount();
 			} else {
 				$this->_error = true;
-			}	
+			}
+	
+			
 		} else {
 			$this->_error = true;
 		}

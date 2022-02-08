@@ -6,7 +6,7 @@
 	
 	$validation = new Validation();
 	
-	$products = DB::getInstance()->query('SELECT title, info FROM products WHERE id=' . get_id())->results(); 
+	$products = DB::getInstance()->query('SELECT * FROM products WHERE id=' . get_id())->results(); 
 	$articles = DB::getInstance()->query('SELECT * FROM articles WHERE id= ' . get_id())->results();
 	
 	foreach($articles as $article){
@@ -14,6 +14,10 @@
 		$title = $article->title;
 		$info = $article->info;
 		$price = $article->price;
+	}
+	
+	foreach($products as $product){
+		$id_product = $product->id;
 	}
 	
 	$test = DB::getInstance()->find(get_id(),'articles')->results();
@@ -75,7 +79,7 @@
 		<div class="col-md-3"></div>
 			<div class="col-md-6">
 				<div class="thumbnail">
-					<img src="" alt="" style="width:242px; height:200px;"><!-- images and alts -->
+					<img src="img/" alt="" style="width:242px; height:200px;"><!-- images and alts -->
 						<div class="captions">
 							<h3><?php echo $title; ?></h3>
 								<p><?php echo $info; ?></p>
